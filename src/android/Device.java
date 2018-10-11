@@ -27,6 +27,7 @@ import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.zendrive.sdk.Zendrive;
 
 import android.provider.Settings;
 
@@ -76,6 +77,13 @@ public class Device extends CordovaPlugin {
             r.put("manufacturer", this.getManufacturer());
 	        r.put("isVirtual", this.isVirtual());
             r.put("serial", this.getSerialNumber());
+            callbackContext.success(r);
+        } else if ("z".equals(action)) {
+            System.out.println("args="+args);
+            JSONObject r = new JSONObject();
+            String zv = Zendrive.getBuildVersion();
+            System.out.println("Zendrive.getBuildVersion()="+zv);
+            r.put("zendriveBuildVersion", zv);
             callbackContext.success(r);
         }
         else {

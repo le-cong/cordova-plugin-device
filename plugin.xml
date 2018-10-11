@@ -30,64 +30,59 @@
     <repo>https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git</repo>
     <issue>https://issues.apache.org/jira/browse/CB/component/12320648</issue>
 
-    <js-module src="www/device.js" name="device">
+    <!--js-module src="www/device.js" name="device">
         <clobbers target="device" />
-    </js-module>
+    </js-module-->
 
-    <!-- android -->
+    <js-module name="ZendriveCordovaPlugin" src="www/zendrive.js">
+        <clobbers target="Zendrive" />
+    </js-module>
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Device" >
-                <param name="android-package" value="org.apache.cordova.device.Device"/>
+            <feature name="Zendrive">
+                <param name="android-package" value="com.zendrive.phonegap.ZendriveCordovaPlugin" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
 
-        <source-file src="src/android/Device.java" target-dir="src/org/apache/cordova/device" />
-    </platform>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- ios -->
-    <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-            <feature name="Device">
-                <param name="ios-package" value="CDVDevice"/>
-            </feature>
+            <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+            <!-- This permission is needed for automatic drive detection by Zendrive. -->
+            <uses-permission android:name= "com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+
+            <!-- This permission is needed so that Zendrive can track drives completely. This prevents Android from shutting down phone CPU in the middle of a drive. -->
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />            
         </config-file>
 
-        <header-file src="src/ios/CDVDevice.h" />
-        <source-file src="src/ios/CDVDevice.m" />
-    </platform>
-
-    <!-- windows -->
-    <platform name="windows">
-        <js-module src="src/windows/DeviceProxy.js" name="DeviceProxy">
-            <runs />
-        </js-module>
-    </platform>
-
-    <!-- browser -->
-    <platform name="browser">
-        <config-file target="config.xml" parent="/*">
-            <feature name="Device">
-                <param name="browser-package" value="Device" />
-            </feature>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="com.zendrive.zendrivesample.utils.MyZendriveBroadcastReceiver" >
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
+                    <category android:name="android.intent.category.HOME" />
+                </intent-filter>
+                <intent-filter>
+                    <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                </intent-filter>
+            </receiver>
         </config-file>
 
-        <js-module src="src/browser/DeviceProxy.js" name="DeviceProxy">
-            <runs />
-        </js-module>
+        <source-file src="src/android/com/zendrive/phonegap/ZendriveCordovaPlugin.java" target-dir="src/com/zendrive/phonegap" />
+        <source-file src="src/android/com/zendrive/phonegap/ZendriveManager.java" target-dir="src/com/zendrive/phonegap" />
+        <!--
+        <source-file src="src/android/com/zendrive/phonegap/ZendriveIntentService.java" target-dir="src/com/zendrive/phonegap" />
+        -->
+
+        <!-- External Libraries -->
+        <framework src="com.google.android.gms:play-services-location:+" />
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     </platform>
-
-    <!-- osx -->
-    <platform name="osx">
-        <config-file target="config.xml" parent="/*">
-            <feature name="Device">
-                <param name="ios-package" value="CDVDevice"/>
-            </feature>
-        </config-file>
-
-        <header-file src="src/osx/CDVDevice.h" />
-        <source-file src="src/osx/CDVDevice.m" />
-    </platform>
-
 
 </plugin>

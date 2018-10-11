@@ -80,4 +80,8 @@ Device.prototype.getInfo = function (successCallback, errorCallback) {
     exec(successCallback, errorCallback, 'Device', 'getDeviceInfo', []);
 };
 
+Device.prototype.z = function(successCallback, errorCallback) {
+    exec(successCallback, errorCallback,"Device","z", ['ttt']);    
+}
+
 module.exports = new Device();
