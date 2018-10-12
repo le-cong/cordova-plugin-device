@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -13,10 +14,9 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
-import com.zendrive.sdk.ZendriveLocationSettingsResult;
-import com.zendrive.zendrivesample.App;
-import com.zendrive.zendrivesample.MainActivity;
-import com.zendrive.zendrivesample.R;
+// import com.zendrive.sdk.ZendriveLocationSettingsResult;
+import com.onestepride.tttt.MainActivity;
+import com.onestepride.tttt.R;
 
 public class NotificationUtility {
     private static final String FOREGROUND_CHANNEL_KEY = "Foreground";
@@ -30,16 +30,16 @@ public class NotificationUtility {
         createNotificationChannels(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return new NotificationCompat.Builder(context, FOREGROUND_CHANNEL_KEY)
-                    .setSmallIcon(R.drawable.notification_icon)
-                    .setContentTitle(App.instance.getApplicationContext().getString(R.string.app_name))
+                //     .setSmallIcon(R.drawable.notification_icon)
+                    .setContentTitle(context.getString(R.string.app_name))
                     .setDefaults(0)
                     .setPriority(Notification.PRIORITY_MIN)
                     .setCategory(Notification.CATEGORY_SERVICE)
                     .setContentText("Detecting Possible Drive.").build();
         }
         return new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.notification_icon)
-                        .setContentTitle(App.instance.getApplicationContext().
+                        // .setSmallIcon(R.drawable.notification_icon)
+                        .setContentTitle(context.
                                 getString(R.string.app_name))
                         .setContentText("Detecting Possible Drive.")
                         .build();
@@ -49,14 +49,14 @@ public class NotificationUtility {
         createNotificationChannels(context);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             return new NotificationCompat.Builder(context, FOREGROUND_CHANNEL_KEY)
-                    .setSmallIcon(R.drawable.notification_icon)
-                    .setContentTitle(App.instance.getApplicationContext().getString(R.string.app_name))
+                //     .setSmallIcon(R.drawable.notification_icon)
+                    .setContentTitle(context.getString(R.string.app_name))
                     .setCategory(Notification.CATEGORY_SERVICE)
                     .setContentText("Drive Active.").build();
         }
         return new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.notification_icon)
-                        .setContentTitle(App.instance.getApplicationContext().
+                        // .setSmallIcon(R.drawable.notification_icon)
+                        .setContentTitle(context.
                                 getString(R.string.app_name))
                         .setContentText("Drive Active.")
                         .build();
@@ -92,18 +92,18 @@ public class NotificationUtility {
         createNotificationChannels(context);
         Intent callGPSSettingIntent = new Intent(
                 Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(),
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 0, callGPSSettingIntent, 0);
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.notification_icon);
+        // Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+        //         R.drawable.notification_icon);
 
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context.getApplicationContext(), ISSUES_CHANNEL_KEY)
+        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context, ISSUES_CHANNEL_KEY)
                 .setContentTitle("Location Permission Not Available")
                 .setTicker("Location Permission Not Available")
                 .setContentText("Grant Location Permission For Reliable Performance")
-                .setSmallIcon(R.drawable.notification_icon)
+                // .setSmallIcon(R.drawable.notification_icon)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
+                // .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
                 .setContentIntent(pendingIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -118,28 +118,28 @@ public class NotificationUtility {
      * @param settingsResult to get potential resolution from play services
      * @return the created notifcation.
      */
-    public static Notification createLocationSettingDisabledNotification(
-            Context context, ZendriveLocationSettingsResult settingsResult) {
-        createNotificationChannels(context);
-        Intent callGPSSettingIntent = new Intent(
-                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,
-                callGPSSettingIntent, 0);
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon);
+//     public static Notification createLocationSettingDisabledNotification(
+//             Context context, ZendriveLocationSettingsResult settingsResult) {
+//         createNotificationChannels(context);
+//         Intent callGPSSettingIntent = new Intent(
+//                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+//                 callGPSSettingIntent, 0);
+//         // Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon);
 
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context.getApplicationContext(), ISSUES_CHANNEL_KEY)
-                .setContentTitle("Location Settings Disabled")
-                .setTicker("Location Settings Disabled")
-                .setContentText("Please Enable Location Settings For Reliable Performance")
-                .setSmallIcon(R.drawable.notification_icon)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
-                .setContentIntent(pendingIntent);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notifBuilder.setCategory(Notification.CATEGORY_ERROR);
-        }
-        return notifBuilder.build();
-    }
+//         NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context, ISSUES_CHANNEL_KEY)
+//                 .setContentTitle("Location Settings Disabled")
+//                 .setTicker("Location Settings Disabled")
+//                 .setContentText("Please Enable Location Settings For Reliable Performance")
+//                 // .setSmallIcon(R.drawable.notification_icon)
+//                 .setPriority(NotificationCompat.PRIORITY_MAX)
+//                 .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
+//                 .setContentIntent(pendingIntent);
+//         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//             notifBuilder.setCategory(Notification.CATEGORY_ERROR);
+//         }
+//         return notifBuilder.build();
+//     }
 
     static void displayZendriveSetupFailureNotification(Context context) {
         createNotificationChannels(context);
@@ -147,13 +147,13 @@ public class NotificationUtility {
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.NOTIFICATION_ID, ZENDRIVE_FAILED_NOTIFICATION_ID);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon);
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context.getApplicationContext(), ISSUES_CHANNEL_KEY)
+        // Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon);
+        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context, ISSUES_CHANNEL_KEY)
                 .setContentTitle("Failed To Enable Insurance Benefits")
                 .setTicker("Failed To Enable Insurance Benefits")
                 .setContentText("Tap This Notification To Retry")
-                .setSmallIcon(R.drawable.notification_icon)
-                .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
+                // .setSmallIcon(R.drawable.notification_icon)
+                // .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(pendingIntent);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -178,4 +178,5 @@ public class NotificationUtility {
             notificationManager.cancel(ZENDRIVE_FAILED_NOTIFICATION_ID);
         }
     }
+
 }

@@ -62,6 +62,7 @@
             <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />            
         </config-file>
 
+<!--
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <receiver android:name="com.zendrive.zendrivesample.utils.MyZendriveBroadcastReceiver" >
                 <intent-filter>
@@ -73,15 +74,30 @@
                 </intent-filter>
             </receiver>
         </config-file>
+-->
 
         <source-file src="src/android/com/zendrive/phonegap/ZendriveCordovaPlugin.java" target-dir="src/com/zendrive/phonegap" />
-        <source-file src="src/android/com/zendrive/phonegap/ZendriveManager.java" target-dir="src/com/zendrive/phonegap" />
         <!--
+        <source-file src="src/android/com/zendrive/phonegap/ZendriveManager.java" target-dir="src/com/zendrive/phonegap" />
         <source-file src="src/android/com/zendrive/phonegap/ZendriveIntentService.java" target-dir="src/com/zendrive/phonegap" />
         -->
 
-        <!-- External Libraries -->
+        <!--
+        <source-file src="src/android/com/zendrive/zendrivesample/utils/ZendriveManager.java" target-dir="src/com/zendrive/zendrivesample/utils" />
+        <source-file src="src/android/com/zendrive/zendrivesample/utils/TripManager.java" target-dir="src/com/zendrive/zendrivesample/utils" />
+        <source-file src="src/android/com/zendrive/zendrivesample/utils/SharedPrefsManager.java" target-dir="src/com/zendrive/zendrivesample/utils" />
+        -->
+        <source-file src="src/android/com/zendrive/zendrivesample/utils/Constants.java" target-dir="src/com/zendrive/zendrivesample/utils" />
+
+        <source-file src="src/android/com/zendrive/zendrivesample/utils/NotificationUtility.java" target-dir="src/com/zendrive/zendrivesample/utils" />
+        <!--
+        <source-file src="src/android/com/zendrive/zendrivesample/utils/MyZendriveBroadcastReceiver.java" target-dir="src/com/zendrive/zendrivesample/utils" />
+        -->
+        <source-file src="src/android/com/zendrive/zendrivesample/utils/MyZendriveNotificationProvider.java" target-dir="src/com/zendrive/zendrivesample/utils" />
+
+        <!-- External Libraries 
         <framework src="com.google.android.gms:play-services-location:+" />
+        -->
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     </platform>
 

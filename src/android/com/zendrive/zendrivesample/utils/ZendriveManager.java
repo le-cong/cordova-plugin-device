@@ -25,7 +25,7 @@ public class ZendriveManager {
     }
 
     // Zendrive SDK setup
-    private static final String ZENDRIVE_SDK_KEY = "";   // Your Zendrive SDK Key
+    private static final String ZENDRIVE_SDK_KEY = "CV7m4UTV3gHYNWITD9xPqUYvlrqCQMZ6";   // Your Zendrive SDK Key
 
     private static ZendriveManager sharedInstance = new ZendriveManager();
 
@@ -48,7 +48,7 @@ public class ZendriveManager {
         Zendrive.setup(
                 applicationContext,
                 zendriveConfiguration,
-                MyZendriveBroadcastReceiver.class,
+                null, //MyZendriveBroadcastReceiver.class,
                 MyZendriveNotificationProvider.class,
                 new ZendriveOperationCallback() {
                     @Override
@@ -59,8 +59,8 @@ public class ZendriveManager {
                             // Update periods
                             updateZendriveInsurancePeriod();
                             // Hide error if visible
-                            NotificationUtility.hideZendriveSetupFailureNotification(
-                                    applicationContext);
+                            // NotificationUtility.hideZendriveSetupFailureNotification(
+                            //         applicationContext);
                             if (callback != null) {
                                 callback.onCompletion(result);
                             }
@@ -74,8 +74,8 @@ public class ZendriveManager {
                                         result.getErrorCode().toString());
 
                                 // Display error
-                                NotificationUtility.displayZendriveSetupFailureNotification(
-                                        applicationContext);
+                                // NotificationUtility.displayZendriveSetupFailureNotification(
+                                //         applicationContext);
                                 if (callback != null) {
                                     callback.onCompletion(result);
                                 }
@@ -137,6 +137,7 @@ public class ZendriveManager {
     }
 
     private Context getApplicationContext() {
-        return App.instance.getApplicationContext();
+        //return App.instance.getApplicationContext();
+        return this.cordova.getActivity().getApplicationContext()
     }
 }

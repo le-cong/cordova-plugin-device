@@ -52,10 +52,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-location:+'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation ('com.zendrive.sdk.android:ZendriveSDK:5.5.2@aar') {
         transitive = true
     }
-    implementation 'com.inrista.loggliest:loggliest:0.2'
-    implementation 'com.jakewharton.timber:timber:4.6.0'
+    // implementation 'com.inrista.loggliest:loggliest:0.2'
+    // implementation 'com.jakewharton.timber:timber:4.6.0'
 }
